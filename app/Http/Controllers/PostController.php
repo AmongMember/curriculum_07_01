@@ -11,7 +11,7 @@ class PostController extends Controller
     //インポートしたPostをインスタンス化して$postとして使用。
     public function index(Post $post)
     {
-        return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);
+        return view('posts.index')->with(['posts' => $post->getPaginateByLimit(5)]);
         //getPaginateByLimit()はPost.phpで定義したメソッドです。
     } 
     
