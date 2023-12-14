@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Blog</title>
         <!-- Fonts -->
-        <link href="http://fonts.googleapis.com/css?famlry=Nunito:200,600" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body class="antialiased">
         <h1>Blog Name</h1>
@@ -13,7 +13,7 @@
             @foreach ($posts as $post)
                 <div class='post'>
                     <a href="/posts/{{ $post->id }}"><h2 class='title'>{{$post->title}}</h2></a>
-                    <a href="/categories/{{$post->category->id}}">{{$post->category->name}}</a>
+                    <a href="">{{$post->category->name}}</a>
                     <p class='body'>{{$post->body}}</p>
                     <form action ="/posts/{{$post->id}}" id="form_{{ $post->id }}" method="post">
                         @csrf
