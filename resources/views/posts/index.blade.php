@@ -28,6 +28,15 @@
                     <br>
                 @endforeach
             </div>
+            <div>
+                @foreach($questions as $question)
+                    <div>
+                        <a href="https://teratail.com/questions/{{ $question['id'] }}">
+                            {{ $question['title'] }}
+                        </a>
+                    </div>
+                @endforeach
+            </div>
             ログインユーザー：{{ Auth::user()->name }}
             <div class='paginate'>{{$posts->links()}}</div>
             <script>

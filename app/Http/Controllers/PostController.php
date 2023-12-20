@@ -12,8 +12,33 @@ class PostController extends Controller
     //インポートしたPostをインスタンス化して$postとして使用。
     public function index(Post $post)
     {
-        return view('posts.index')->with(['posts' => $post->getPaginateByLimit(5)]);
-        //getPaginateByLimit()はPost.phpで定義したメソッドです。
+        //クライアントインスタンス生成
+        $client = new \GuzzleHttp\Client();
+        
+        //GETで通信するURL
+        $url = 'https://teratail.com/api/v1/questions';    
+        
+        //リクエスト送信と返却データの取得
+        //Bearerトークンにアクセストークンを指定して認証を行う
+        $response = $client->request(
+            'GET',
+            $url,
+            ['Bearer' => config('services.teratail.token')]
+        );
+        
+        // API通信で取得したデータはjson形式なので
+        // PHPファイルに対応した連想配列にデコードする
+        $questions = json_decode($response->getBody(), true);
+        
+        // index bladeに取得したデータを渡す
+        return view('posts.index')->with([
+            'posts' => $post->getPaginateByLimit(),
+            'questions' => $questions['questions'],
+        ]);
+        
+        // //getPaginateByLimit()はPost.phpで定義したメソッドです。
+        // return view('posts.index')->with(['posts' => $post->getPaginateByLimit(5)]);
+        
     } 
     
     /**
